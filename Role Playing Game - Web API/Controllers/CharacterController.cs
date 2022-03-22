@@ -1,14 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RolePlayingGameWebAPI.Dtos;
 using RolePlayingGameWebAPI.Models;
 using RolePlayingGameWebAPI.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace RolePlayingGameWebAPI.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class CharacterController : ControllerBase
@@ -28,7 +31,6 @@ namespace RolePlayingGameWebAPI.Controllers
         {
             return Ok(await _characterService.GetAllCharacter());
         }
-
         //Get api/CHaracter/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<ServiceResponse<GetCharacter>>> GetById(int id)
@@ -40,14 +42,12 @@ namespace RolePlayingGameWebAPI.Controllers
             }
             return Ok(result);
         }
-
         //Post api/Character
         [HttpPost]
         public async Task<ActionResult<ServiceResponse<List<Character>>>> AddCharacter(AddCharacter newCharacter)
         {
             return Ok(await _characterService.AddCharacter(newCharacter));
         }
-
         //Put api/Character
         [HttpPut]
         public async Task<ActionResult<ServiceResponse<GetCharacter>>> UpdateCharacters(UpdateCharacter updateCharacter)
@@ -59,7 +59,6 @@ namespace RolePlayingGameWebAPI.Controllers
             }
             return Ok(result);
         }
-
         //Delete api/Character/{id}
         [HttpDelete("{id}")]
         public async Task<ActionResult<ServiceResponse<List<GetCharacter>>>> DeleteCharacter([FromRoute] int id)

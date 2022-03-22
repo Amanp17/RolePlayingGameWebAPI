@@ -1,4 +1,5 @@
-﻿using RolePlayingGameWebAPI.Models;
+﻿using RolePlayingGameWebAPI.Dtos.Weapon;
+using RolePlayingGameWebAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,6 @@ namespace RolePlayingGameWebAPI.Dtos
         public int Defense { get; set; } = 10;
         public int Intelligence { get; set; } = 10;
         public RpgClass Class { get; set; } = RpgClass.knight;
+        public GetWeapon Weapon { get; set; }
     }
 }

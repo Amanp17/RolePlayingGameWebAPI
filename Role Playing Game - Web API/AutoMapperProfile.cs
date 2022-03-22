@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using RolePlayingGameWebAPI.Dtos;
+using RolePlayingGameWebAPI.Dtos.Weapon;
 using RolePlayingGameWebAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -12,8 +13,9 @@ namespace RolePlayingGameWebAPI
     {
         public AutoMapperProfile()
         {
-            CreateMap<Character, GetCharacter>().ReverseMap();
+            CreateMap<GetCharacter, Character>().ReverseMap();
             CreateMap<Character, AddCharacter>().ReverseMap();
+            CreateMap<Weapon, GetWeapon>().ReverseMap();
         }
     }
 }

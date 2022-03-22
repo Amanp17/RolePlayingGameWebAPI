@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RolePlayingGameWebAPI.Data;
 
 namespace RolePlayingGameWebAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220319110950_UserCharacterRelationShip")]
+    partial class UserCharacterRelationShip
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,30 +77,6 @@ namespace RolePlayingGameWebAPI.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("RolePlayingGameWebAPI.Models.Weapon", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CharacterID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Damage")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CharacterID")
-                        .IsUnique();
-
-                    b.ToTable("Weapons");
-                });
-
             modelBuilder.Entity("RolePlayingGameWebAPI.Models.Character", b =>
                 {
                     b.HasOne("RolePlayingGameWebAPI.Models.User", "User")
@@ -106,22 +84,6 @@ namespace RolePlayingGameWebAPI.Migrations
                         .HasForeignKey("UserID");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("RolePlayingGameWebAPI.Models.Weapon", b =>
-                {
-                    b.HasOne("RolePlayingGameWebAPI.Models.Character", "Character")
-                        .WithOne("Weapon")
-                        .HasForeignKey("RolePlayingGameWebAPI.Models.Weapon", "CharacterID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Character");
-                });
-
-            modelBuilder.Entity("RolePlayingGameWebAPI.Models.Character", b =>
-                {
-                    b.Navigation("Weapon");
                 });
 
             modelBuilder.Entity("RolePlayingGameWebAPI.Models.User", b =>
