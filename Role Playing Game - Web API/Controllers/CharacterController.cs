@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RolePlayingGameWebAPI.Dtos;
+using RolePlayingGameWebAPI.Dtos.Character;
 using RolePlayingGameWebAPI.Models;
 using RolePlayingGameWebAPI.Services;
 using System;
@@ -68,6 +69,13 @@ namespace RolePlayingGameWebAPI.Controllers
             {
                 return NotFound(result);
             }
+            return Ok(result);
+        }
+        //Post api/CharacterSkill
+        [HttpPost("Skills")]
+        public async Task<ActionResult<ServiceResponse<GetCharacter>>> AddCharacterSkill(AddCharacterSkill newCharacterSkill)
+        {
+            var result = await _characterService.AddCharacterSkill(newCharacterSkill);
             return Ok(result);
         }
     }

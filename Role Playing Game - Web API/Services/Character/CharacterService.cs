@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using RolePlayingGameWebAPI.Data;
 using RolePlayingGameWebAPI.Dtos;
+using RolePlayingGameWebAPI.Dtos.Character;
 using RolePlayingGameWebAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,7 @@ namespace RolePlayingGameWebAPI.Services
         {
             var serviceResponse = new ServiceResponse<List<GetCharacter>>();
             var dbCharacters = await _context.Characters
+                .Include(c=>c.Skills)
                 .Include(c=>c.Weapon)
                 .Where(c=>c.User.ID == GetUserId)
                 .ToListAsync();
@@ -41,6 +43,7 @@ namespace RolePlayingGameWebAPI.Services
             var serviceResponse = new ServiceResponse<GetCharacter>();
             var dbCharacter = await _context.Characters
                 .Include(c=>c.Weapon)
+                .Include(c=>c.Skills)
                 .FirstOrDefaultAsync(x => x.Id == id && x.User.ID==GetUserId);
             var character = _mapper.Map<GetCharacter>(dbCharacter);
             serviceResponse.Data = character;
@@ -121,6 +124,42 @@ namespace RolePlayingGameWebAPI.Services
             }
             
             return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<GetCharacter>> AddCharacterSkill(AddCharacterSkill newCharacterSkill)
+        {
+            var response = new ServiceResponse<GetCharacter>();
+            try
+            {
+                var character = await _context.Characters
+                    .Include(c=>c.Weapon)
+                    .Include(c=>c.Skills)
+                    .FirstOrDefaultAsync(c => c.Id == newCharacterSkill.CharacterId && c.User.ID == GetUserId);
+
+                if (character == null)
+                {
+                    response.Success = false;
+                    response.Message = "Character Not Found";
+                }
+
+                var skill = await _context.Skill.FirstOrDefaultAsync(s => s.Id == newCharacterSkill.SkillID);
+                if (skill == null)
+                {
+                    response.Success = false;
+                    response.Message = "Skill Not Found";
+                    return response;
+                }
+                character.Skills.Add(skill);
+                await _context.SaveChangesAsync();
+
+                response.Data = _mapper.Map<GetCharacter>(character);
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+            }
+            return response;
         }
     }
 }
