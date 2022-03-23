@@ -4,6 +4,9 @@
 
 A role-playing game (RPG) is a genre of video game where the gamer controls a fictional character (or characters) that undertakes a quest in an imaginary world.
 
+The back end application is a small text-based role-playing game where different users can register (Here we have used JSON web tokens for authentication) and create their 
+own characters like a mage or a knight, also added some skills and a weapon, and also let the characters fight against each other to see who is the best of them all.
+
 ## What's Included :
 - MVC Architectural Patterns
 - Linq
@@ -13,8 +16,17 @@ A role-playing game (RPG) is a genre of video game where the gamer controls a fi
 - Mapping Models Using AutoMapper
 - More than CRUD
 
-The back end application is a small text-based role-playing game where different users can register (Here we have used JSON web tokens for authentication) and create their 
-own characters like a mage or a knight, also added some skills and a weapon, and also let the characters fight against each other to see who is the best of them all.
+## Also Includes:
+- Generic Response Model
+- Repository Design Pattern
+- All the Types of Relationships amongst Entities
+- Joining Entities with Fluent API
+- Included Entities with Linq Queries
+
+## Authentication and Authorization:
+- Jwt Authentication
+- Cryptography Algorithm for Hashing Passwords
+- Authentication MiddleWare and Authorize Attributes
 
 ## Tools & Technologies Used:
 
