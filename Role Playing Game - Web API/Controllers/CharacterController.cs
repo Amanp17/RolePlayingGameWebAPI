@@ -47,7 +47,8 @@ namespace RolePlayingGameWebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<ServiceResponse<List<Character>>>> AddCharacter(AddCharacter newCharacter)
         {
-            return Ok(await _characterService.AddCharacter(newCharacter));
+            var result = await _characterService.AddCharacter(newCharacter);
+            return Ok(result);
         }
         //Put api/Character
         [HttpPut]

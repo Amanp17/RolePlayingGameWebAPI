@@ -73,6 +73,7 @@ namespace RolePlayingGameWebAPI.Data
             using(var hmac = new System.Security.Cryptography.HMACSHA512())
             {
                 passwordSalt = hmac.Key;
+                //ComputeHash will Compute the HashValue of the specified Byte Array
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
         }
@@ -101,7 +102,7 @@ namespace RolePlayingGameWebAPI.Data
                 new Claim(ClaimTypes.Name,user.Name)
             };
             //Returns the New Instance of SymmetricSecurityKey Provided in JSON File
-            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("Token").Value));
+            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("JwtToken:Token").Value));
             //SigningCredentials will Checks the Signin Using Key and HashMap Algorithm
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
             //Contains some information which used to create a security token.

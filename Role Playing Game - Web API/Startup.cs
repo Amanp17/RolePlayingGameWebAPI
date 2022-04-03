@@ -13,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using RolePlayingGameWebAPI.Data;
 using RolePlayingGameWebAPI.Services;
+using RolePlayingGameWebAPI.Services.Fight;
 using RolePlayingGameWebAPI.Services.Weapon;
 using Swashbuckle.AspNetCore.Filters;
 using System;
@@ -65,13 +66,15 @@ namespace RolePlayingGameWebAPI
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(Configuration.GetSection("Token").Value)),
+                        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(Configuration.GetSection("JwtToken:Token").Value)),
                         ValidateIssuer = false,
                         ValidateAudience = false
                     };
                 });
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<IWeaponService, WeaponService>();
+            services.AddScoped<IWeaponService, WeaponService>(); 
+            services.AddScoped<IFightService, FightService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

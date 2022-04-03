@@ -25,7 +25,10 @@ namespace RolePlayingGameWebAPI.Services
             _context = context;
             _httpContextAccessor = httpContextAccessor;
         }
+        //Gets the Current LoggedIn User ID via Claims
         private int GetUserId => int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+        //Get ALL Characters
         public async Task<ServiceResponse<List<GetCharacter>>> GetAllCharacter()
         {
             var serviceResponse = new ServiceResponse<List<GetCharacter>>();
@@ -34,7 +37,9 @@ namespace RolePlayingGameWebAPI.Services
                 .Include(c=>c.Weapon)
                 .Where(c=>c.User.ID == GetUserId)
                 .ToListAsync();
-            serviceResponse.Data = dbCharacters.Select(c => _mapper.Map<GetCharacter>(c)).ToList();
+            serviceResponse.Data = dbCharacters
+                .Select(c => _mapper.Map<GetCharacter>(c))
+                .ToList();
             return serviceResponse;
         }
 
@@ -54,6 +59,7 @@ namespace RolePlayingGameWebAPI.Services
         {
             var serviceResponse = new ServiceResponse<List<GetCharacter>>();                             
             Character character = _mapper.Map<Character>(newCharacter);
+            //LoggedIn User will be assigned with the Character Added
             character.User = await _context.Users.FirstOrDefaultAsync(c => c.ID == GetUserId);
             _context.Characters.Add(character);
             await _context.SaveChangesAsync();
@@ -62,6 +68,7 @@ namespace RolePlayingGameWebAPI.Services
                 .Select(c=> _mapper.Map<GetCharacter>(c)).ToList();
             return serviceResponse;
         }
+
         public async Task<ServiceResponse<GetCharacter>> UpdateCharacter(UpdateCharacter updateCharacter)
         {
             var serviceResponse = new ServiceResponse<GetCharacter>();

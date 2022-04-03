@@ -25,6 +25,7 @@ namespace RolePlayingGameWebAPI.Services.Weapon
             _httpContextAccessor = httpContextAccessor;
             _mapper = mapper;
         }
+        //Gets the Current UserId of the LoggedIn User Using Claims
         private int GetUserId => int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
         public async Task<ServiceResponse<GetCharacter>> AddWeapon(AddWeapon newWeapon)
         {
@@ -32,6 +33,7 @@ namespace RolePlayingGameWebAPI.Services.Weapon
             try
             {
                 var character = await _context.Characters
+                    .Include(c=>c.Skills)
                     .FirstOrDefaultAsync(c => c.Id == newWeapon.CharacterId && c.User.ID == GetUserId);
                 if(character == null)
                 {

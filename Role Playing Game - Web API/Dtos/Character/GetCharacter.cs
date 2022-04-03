@@ -19,5 +19,8 @@ namespace RolePlayingGameWebAPI.Dtos
         public RpgClass Class { get; set; } = RpgClass.knight;
         public GetWeapon Weapon { get; set; }
         public List<GetSkill> Skills { get; set; }
+        public int Fight { get; set; }
+        public int Victories { get; set; }
+        public int Defeat { get; set; }
     }
 }
