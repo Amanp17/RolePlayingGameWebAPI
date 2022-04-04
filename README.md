@@ -1,10 +1,9 @@
 # Role Playing Game Web API
-<p align="center">
-  <img 
-    width="300"
-    height="300"
-    src="C:\Users\DELL\Downloads\rpg_character.png"
-</p>
+
+  
+  ![rpg_character](https://user-images.githubusercontent.com/63691859/161464005-23081560-752f-4db0-bbd3-7ec7bb81014d.png)
+
+
 
 ## RESTful WEB-API using ASP.NET MVC and SQL SERVER
 
