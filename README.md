@@ -1,4 +1,10 @@
 # Role Playing Game Web API
+
+  
+  ![rpg_character](https://user-images.githubusercontent.com/63691859/161464005-23081560-752f-4db0-bbd3-7ec7bb81014d.png)
+
+
+
 ## RESTful WEB-API using ASP.NET MVC and SQL SERVER
 
 
