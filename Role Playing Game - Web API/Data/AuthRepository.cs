@@ -99,7 +99,8 @@ namespace RolePlayingGameWebAPI.Data
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier,user.ID.ToString()),
-                new Claim(ClaimTypes.Name,user.Name)
+                new Claim(ClaimTypes.Name,user.Name),
+                new Claim(ClaimTypes.Role,user.Role)
             };
             //Returns the New Instance of SymmetricSecurityKey Provided in JSON File
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("JwtToken:Token").Value));

@@ -45,4 +45,3 @@ namespace RolePlayingGameWebAPI.Controllers
             return Ok(result);
         }
     }
-}

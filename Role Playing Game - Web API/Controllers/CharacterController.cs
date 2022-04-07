@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace RolePlayingGameWebAPI.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Player")]
     [ApiController]
     [Route("api/[controller]")]
     public class CharacterController : ControllerBase

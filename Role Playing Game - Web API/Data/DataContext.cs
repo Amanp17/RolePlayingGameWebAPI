@@ -26,6 +26,9 @@ namespace RolePlayingGameWebAPI.Data
                 new Skill { Id=2,Name= "Frenzy",Damage=20 },
                 new Skill { Id=3,Name="Blizard",Damage=50}
                 );
+
+            modelBuilder.Entity<User>()
+                .Property(User => User.Role).HasDefaultValue("Player");
         }
     }
 }
